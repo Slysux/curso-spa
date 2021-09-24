@@ -1,5 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 
 module.exports = {
     entry: './src/index.js',
@@ -10,6 +14,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js'],
+        alias: {
+            '@styles': path.resolve(__dirname, 'src/styles/'),
+        }
     },
     module: {
         rules: [
@@ -19,6 +26,14 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
+            },
+            {
+                test: /\.(sc|sa|c)ss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     },
@@ -30,5 +45,15 @@ module.exports = {
                 filename: './index.html'
             }
         ),
-    ]
+        new MiniCssExtractPlugin({
+            filename: 'assets/styles/[name].css'
+        })
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin()
+        ]
+    }
 }
