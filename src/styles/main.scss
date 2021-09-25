@@ -40,6 +40,7 @@ a {
     }
     &-nav a {
         font-size: 1.8rem;
+        font-weight: bold;
         color: var(--white);
     }
 }
@@ -56,12 +57,57 @@ a {
     gap: 50px;
     &-inner {
         @extend .characters;
+        grid-template-columns: 1fr 2fr;
+        column-gap: 80px;
+        place-items: center;
+        align-content: space-between;
+        &__item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+            h2 {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                font-size: 2rem;
+                padding: 30px 20px;
+                text-align: center;
+                background: var(--white);
+                color: var(--secundary);
+            }
+            img {
+                width: 100%;
+            }
+        }
+        &__card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            column-gap: 30px;
+            border-radius: 10px;
+            padding: 30px;
+            background-color: var(--white);
+            height: 100%;
+            width: 100%;
+            h3 {
+                font-size: 2rem;
+                color: var(--secundary);
+            }
+            span {
+                font-weight: normal;
+                font-size: 1.8rem;
+                color: var(--primary);
+            }
+        }
     }
 }
 
-.character-item {
+.characters-item {
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
     &:hover {
         a {
             color: var(--secundary);
@@ -71,21 +117,28 @@ a {
         }
     }
     a {
-        position: relative;
-        color: var(--primary);
         transition: all .3s ease;
+        color: var(--primary);
     }
     h2 {
         position: absolute;
         bottom: 0;
         width: 100%;
         font-size: 2rem;
-        background: var(--white);
         padding: 30px 20px;
+        text-align: center;
+        background: var(--white);
     }
     img {
         width: 100%;
         object-fit: cover;
         transition: all .3s ease;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .characters-inner {
+        grid-template-columns: inherit;
+        grid-template-rows: 1.5fr 1fr;
     }
 }
